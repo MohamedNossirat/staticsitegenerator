@@ -1,0 +1,1 @@
+# Static Site generator to publich my own CV and articles
