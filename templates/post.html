@@ -1,0 +1,70 @@
+{%extends "base.html"%} 
+{%block title%} {{post.metadata.title}} 
+{%endblock
+title%} 
+{%block content%}
+<div class="container">
+  <div class="level-item">
+    <div class="figure is-square">
+      {%if post.metadata.cover%}
+      <img class="img" src="{{post.metadata.cover}}" />
+      {%else%}
+      <img class="img" src="https://s3.amazonaws.com/HC-CDN/blog-header.jpg" />
+      {%endif%}
+      <br />
+      <h1 class="title has-text-centered mt-4">{{post.metadata.title}}</h1>
+      <br />
+      <div class="block has-text-centered">
+        <small class="title is-size-6">Tags: </small>
+        {%for tag in post.metadata.tags%}
+        <a class="tag is-link" href="/tags/{{tag.lower()}}.html">{{tag}}</a>
+        {%endfor%}
+      </div>
+      <div class="level">
+        <div class="level-left">
+          <p class="subtitle">{{post.metadata.author}}</p>
+        </div>
+        <div class="level-right">
+          <p class="subtitle">{{post.metadata.date}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="columns">
+      <div class="column">
+        <p class="title is-size-4">Table Of Content</p>
+        <ul>
+          {%for key,value in post.toc.items()%}
+          <li><button class="button is-white" to="{{value}}" onclick="window.goToTarget(this)">{{key}}</button></li>
+          {%endfor%}
+        </ul>
+      </div>
+      <div class="column is-three-quarters-desktop">
+        <div class="content post has-text-justified">{{post.content}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>
+  hljs.highlightAll();
+  function goToTarget(item){
+    item.scrollIntoView({behavior: "smooth"})
+  };
+</script>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon&display=swap");
+  .post {
+    font-family: "IM Fell French Canon", serif;
+  }
+  .img{
+    border-radius: 10px;
+    width: fit-content;
+  }
+</style>
+{%endblock content%}

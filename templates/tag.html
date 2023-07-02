@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+{%block title%}
+{{tag}} Pages
+{%endblock title%} 
+
+{%block content%}
+<div class="container">
+  <div class="columns is-centered mt-4">
+    {%for page in pages %} {%if tag in page.metadata.tags%}
+    <div class="column is-4">
+      <div class="card">
+        <div class="card-image">
+          <figure class="image is-16by9">
+            {%if page.metadata.cover%}
+            <img src="{{page.metadata.cover}}" alt="Placeholder image" />
+            {%else%}
+            <img src="https://s3.amazonaws.com/HC-CDN/blog-header.jpg" />
+            {%endif%}
+          </figure>
+        </div>
+        <div class="card-content">
+          <a class="is-white" href="/pages/{{page.metadata.slug}}.html">
+            <h1 class="title is-size-4 has-text-centered">
+              {{page.metadata.title}}
+            </h1>
+          </a>
+        </div>
+      </div>
+    </div>
+    {%endif%} {%endfor%}
+  </div>
+</div>
+{%endblock content%}
